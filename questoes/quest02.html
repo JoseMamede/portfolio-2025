@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 02: Números Pares com Loop FOR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #f7f7f7; /* Fundo branco/claro */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        #pares-resultado li {
+            margin-bottom: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main" class="h-screen flex items-center justify-center">
+        <form 
+            class="bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4 border border-gray-300 w-full max-w-sm" 
+            id="paresForm" action="" method="get"
+            >
+            <h1 class="text-gray-800 text-xl font-bold mb-6 text-center">Questão 02: Pares com Loop FOR</h1>
+            
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="numMaximo">
+                    Número Máximo
+                </label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                type="number" name="numMaximo" id="numMaximo" placeholder="Ex: 20">
+            </div>
+            
+            <div class="flex items-center justify-center">
+                <input class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer transition duration-300" 
+                type="submit" value="Mostrar Pares">
+            </div>
+            
+            <div id="resultado-area" class="mt-6"></div>
+            
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("paresForm").addEventListener("submit", function (e){
+            e.preventDefault();
+
+            const numMaxInput = document.getElementById("numMaximo");
+            const numMax = parseInt(numMaxInput.value);
+            const resultadoArea = document.getElementById("resultado-area");
+            
+            resultadoArea.innerHTML = ''; 
+
+            if (isNaN(numMax) || numMax < 0) {
+                resultadoArea.innerHTML = '<p class="text-red-500">Por favor, digite um número positivo válido.</p>';
+                return;
+            }
+
+            let listaParesHTML = '<h2 class="font-bold mb-2 text-gray-800">Números Pares (0 até ' + numMax + '):</h2>';
+            listaParesHTML += '<ol id="pares-resultado" class="list-decimal ml-5 text-gray-700">';
+            
+            for (let i = 0; i <= numMax; i++) {
+                if (i % 2 === 0) {
+                    listaParesHTML += '<li>' + i + '</li>';
+                }
+            }
+            
+            listaParesHTML += '</ol>';
+            listaParesHTML += '<a href="../index.html" class="mt-5 inline-block text-blue-500 hover:text-blue-700 underline font-semibold transition duration-300">Voltar ao Portfólio</a>';
+
+
+
+            resultadoArea.innerHTML = listaParesHTML;
+        });
+    </script>
+</body>
+</html>

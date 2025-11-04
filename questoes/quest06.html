@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 06: Lab 04 - Funções de Array com Loop FOR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #f7f7f7; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .btn-action {
+            background-color: #3b82f6; 
+            color: white;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            transition: background-color 0.3s;
+            margin-bottom: 0.5rem; 
+        }
+        .btn-action:hover {
+            background-color: #2563eb; 
+        }
+        .reset-btn {
+            background-color: #6b7280; 
+        }
+        .reset-btn:hover {
+            background-color: #4b5563;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main" class="p-6 md:p-10 w-full max-w-lg">
+        <div class="bg-white shadow-xl rounded-lg px-8 pt-6 pb-8 mb-4 border border-gray-300">
+            
+            <h1 class="text-gray-800 text-2xl font-bold mb-6 text-center">
+                Questão 06: Lab 04 - Funções com Loop FOR
+            </h1>
+
+            <div class="mb-4 border-b pb-4">
+                <h2 class="text-gray-800 text-lg font-bold mb-2">Array Base:</h2>
+                <div id="arrayDisplay" class="bg-gray-100 text-gray-700 p-3 min-h-12 rounded-md font-mono">
+                    </div>
+                <p class="text-sm italic mt-2 text-gray-600">
+                    O array de strings (para criarObjetos) é: ["Alpha", "Beta", "Gamma"]
+                </p>
+            </div>
+
+            <div class="mb-6">
+                <p class="block text-gray-700 text-sm font-bold mb-2">Funções Implementadas (usando FOR):</p>
+                <div class="flex flex-wrap gap-3">
+                    <button onclick="testDobra()" class="btn-action">dobrarNumeros</button>
+                    <button onclick="testFiltrar()" class="btn-action">filtrarMaioresQueDois</button>
+                    <button onclick="testEncontrar()" class="btn-action">encontrarPrimeiroMaiorQueDois</button>
+                    <button onclick="testSomar()" class="btn-action">somarElementos</button>
+                    <button onclick="testAdicionarUm()" class="btn-action">adicionarUm (Modifica Original)</button>
+                    <button onclick="testCriarObjetos()" class="btn-action">criarObjetos</button>
+                    <button onclick="testLogarPares()" class="btn-action">logarPares (Veja o Console)</button>
+                    <button onclick="resetArray()" class="btn-action reset-btn">Resetar</button>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-300 pt-4">
+                <h2 class="text-gray-800 text-lg font-bold mb-2">Resultado da Operação:</h2>
+                <div id="resultadoDisplay" class="bg-gray-100 text-gray-700 p-4 min-h-12 rounded-md shadow-inner font-mono whitespace-pre-wrap">
+                    Clique em um botão para testar a função recriada.
+                </div>
+            </div>
+
+            <a href="../index.html" class="mt-8 block text-center text-blue-500 hover:text-blue-700 underline font-semibold transition duration-300">
+                Voltar ao Portfólio
+            </a>
+            
+        </div>
+    </div>
+
+    <script>
+        let arrayNumeros = [1, 5, 2, 8, 3, 4, 10]; 
+        const arrayBase = [1, 5, 2, 8, 3, 4, 10];
+        const arrayStrings = ["Alpha", "Beta", "Gamma"];
+
+        // Elementos DOM
+        const arrayDisplay = document.getElementById('arrayDisplay');
+        const resultadoDisplay = document.getElementById('resultadoDisplay');
+
+        function dobrarNumeros(array) {
+            let novoArray = [];
+            for (let i = 0; i < array.length; i++) {
+                novoArray.push(array[i] * 2);
+            }
+            return novoArray;
+        }
+
+        function filtrarMaioresQueDois(array) {
+            let novoArray = [];
+            for (let i = 0; i < array.length; i++) {
+                if (array[i] > 2) {
+                    novoArray.push(array[i]);
+                }
+            }
+            return novoArray;
+        }
+
+        function encontrarPrimeiroMaiorQueDois(array) {
+            for (let i = 0; i < array.length; i++) {
+                if (array[i] > 2) {
+                    return array[i];
+                }
+            }
+            return undefined; 
+        }
+
+        function somarElementos(array) {
+            let soma = 0;
+            for (let i = 0; i < array.length; i++) {
+                soma += array[i];
+            }
+            return soma;
+        }
+
+        function adicionarUm(array) {
+            for (let i = 0; i < array.length; i++) {
+                array[i] += 1;
+            }
+
+        }
+        
+        function criarObjetos(array) {
+            let novoArray = [];
+            for (let i = 0; i < array.length; i++) {
+                novoArray.push({ nome: array[i] });
+            }
+            return novoArray;
+        }
+
+        function logarPares(array) {
+            console.log("--- Logar Pares (Questão 06) ---");
+            let count = 0;
+            for (let i = 0; i < array.length; i++) {
+                if (array[i] % 2 === 0) {
+                    console.log(`Par encontrado: ${array[i]}`);
+                    count++;
+                }
+            }
+            console.log(`Total de pares encontrados: ${count}`);
+            return count; 
+        }
+
+        function renderDisplay(arr) {
+            arrayDisplay.textContent = JSON.stringify(arr);
+        }
+        
+        function updateResultado(title, result) {
+            // Usa JSON.stringify para formatar arrays e objetos para exibição
+            const formattedResult = (typeof result === 'object' && result !== null) ? JSON.stringify(result, null, 2) : result;
+            resultadoDisplay.innerHTML = `<p class="font-semibold mb-1">${title}:</p><pre class="whitespace-pre-wrap">${formattedResult}</pre>`;
+            renderDisplay(arrayNumeros); // Atualiza o array principal após o teste
+        }
+
+        function testDobra() {
+            const resultado = dobrarNumeros(arrayNumeros);
+            updateResultado("Resultado da função dobrarNumeros", resultado);
+        }
+
+        function testFiltrar() {
+            const resultado = filtrarMaioresQueDois(arrayNumeros);
+            updateResultado("Resultado da função filtrarMaioresQueDois", resultado);
+        }
+
+        function testEncontrar() {
+            const resultado = encontrarPrimeiroMaiorQueDois(arrayNumeros);
+            updateResultado("Resultado da função encontrarPrimeiroMaiorQueDois", `Primeiro número > 2: ${resultado}`);
+        }
+
+        function testSomar() {
+            const resultado = somarElementos(arrayNumeros);
+            updateResultado("Resultado da função somarElementos", `Soma Total: ${resultado}`);
+        }
+
+        function testAdicionarUm() {
+            adicionarUm(arrayNumeros);
+            updateResultado("Resultado da função adicionarUm (Array modificado)", arrayNumeros);
+            alert("O array original foi modificado! Verifique o Array Base acima.");
+        }
+        
+        function testCriarObjetos() {
+             const resultado = criarObjetos(arrayStrings);
+             updateResultado("Resultado da função criarObjetos", resultado);
+        }
+
+        function testLogarPares() {
+            const count = logarPares(arrayNumeros);
+            updateResultado("Resultado da função logarPares", `Verifique o console do navegador. Total de pares: ${count}`);
+        }
+
+        function resetArray() {
+            arrayNumeros = [...arrayBase]; 
+            resultadoDisplay.innerHTML = 'Array resetado. Clique em uma operação.';
+            renderDisplay(arrayNumeros);
+        }
+
+   
+        resetArray();
+    </script>
+</body>
+</html>

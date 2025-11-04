@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 03: Lab 01 - Manipulação de Array</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+       
+        body {
+            background-color: #f7f7f7; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+       
+        .card-container {
+            background-color: #d1d5db; /* gray-300 */
+        }
+
+        .btn-array {
+            background-color: #3b82f6; 
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            transition: background-color 0.3s;
+        }
+        .btn-array:hover {
+            background-color: #2563eb; 
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main" class="p-6 md:p-10 w-full max-w-lg">
+        <div class="card-container shadow-xl rounded-lg px-8 pt-6 pb-8 mb-4 border border-gray-400">
+            
+            <h1 class="text-gray-800 text-2xl font-bold mb-6 text-center">
+                Lab 01 - Mostrando um array e alterando os seus elementos
+            </h1>
+
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="valorInput">
+                    Digite um valor:
+                </label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                type="text" id="valorInput" placeholder="Ex: novo item">
+            </div>
+
+            <div class="mb-6">
+                <p class="block text-gray-700 text-sm font-bold mb-2">Selecione uma operação para realizar sobre o array:</p>
+                <div class="flex flex-wrap gap-3">
+                    <button id="btnPush" class="btn-array">push</button>
+                    <button id="btnUnshift" class="btn-array">unshift</button>
+                    <button id="btnShift" class="btn-array">shift</button>
+                    <button id="btnPop" class="btn-array">pop</button>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-400 pt-4">
+                <h2 class="text-gray-800 text-lg font-bold mb-2">Variável: meuArray</h2>
+                <div id="arrayDisplay" class="bg-blue-800 border-l-4 border-blue-900 text-white p-4 min-h-20 rounded-md shadow-inner">
+                    </div>
+            </div>
+
+            <a href="../index.html" class="mt-8 block text-center text-blue-500 hover:text-blue-700 underline font-semibold transition duration-300">
+                Voltar ao Portfólio
+            </a>
+            
+        </div>
+    </div>
+
+    <script>
+
+        let meuArray = ["item-inicial", "exemplo", "teste"];
+        const arrayDisplay = document.getElementById('arrayDisplay');
+        const valorInput = document.getElementById('valorInput');
+
+        function renderArray() {
+            if (meuArray.length === 0) {
+                arrayDisplay.innerHTML = '<p class="text-red-300 italic">O array está vazio.</p>';
+            } else {
+              
+                const itemsHTML = meuArray.map(item => 
+        
+                    `<span class="inline-block bg-blue-500 text-white text-xs font-bold px-3 py-1 m-1 rounded-full shadow-md">${item}</span>`
+                ).join(''); 
+                
+                arrayDisplay.innerHTML = itemsHTML;
+            }
+        }
+
+        
+        document.getElementById('btnPush').addEventListener('click', (e) => {
+            e.preventDefault();
+            const valor = valorInput.value.trim();
+            if (valor) {
+                meuArray.push(valor);
+                valorInput.value = ''; 
+                renderArray();
+            }
+        });
+
+        document.getElementById('btnUnshift').addEventListener('click', (e) => {
+            e.preventDefault();
+            const valor = valorInput.value.trim();
+            if (valor) {
+                meuArray.unshift(valor);
+                valorInput.value = '';
+                renderArray();
+            }
+        });
+
+        document.getElementById('btnPop').addEventListener('click', (e) => {
+            e.preventDefault();
+            if (meuArray.length > 0) {
+                meuArray.pop();
+                renderArray();
+            }
+        });
+
+        document.getElementById('btnShift').addEventListener('click', (e) => {
+            e.preventDefault();
+            if (meuArray.length > 0) {
+                meuArray.shift();
+                renderArray();
+            }
+        });
+
+        renderArray();
+
+    </script>
+</body>
+</html>

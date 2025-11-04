@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 05: Lab 03 - Métodos de Transformação de Array</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .btn-transform {
+            background-color: #3b82f6; 
+            color: white;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            transition: background-color 0.3s;
+        }
+        .btn-transform:hover {
+            background-color: #2563eb; 
+        }
+        .array-item {
+            display: inline-block;
+            background-color: #3b82f6; 
+            color: white;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            border-radius: 0.25rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main" class="p-6 md:p-10 w-full max-w-lg">
+        <div class="bg-white shadow-xl rounded-lg px-8 pt-6 pb-8 mb-4 border border-gray-300">
+            
+            <h1 class="text-gray-800 text-2xl font-bold mb-6 text-center">
+                Lab 03 - Métodos para iteração e transformação do array
+            </h1>
+
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="valorInput">
+                    Digite um valor (Apenas para demonstração visual, não utilizado nas operações):
+                </label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                type="text" id="valorInput" placeholder="42">
+            </div>
+
+            <div class="border-t border-gray-300 pt-4 mb-6">
+                <h2 class="text-gray-800 text-lg font-bold mb-2">Veja os dados do seu array</h2>
+                <div id="arrayDisplay" class="bg-blue-800 text-white p-4 min-h-16 rounded-md shadow-inner flex flex-wrap items-center">
+                    </div>
+            </div>
+
+            <div class="mb-6">
+                <p class="block text-gray-700 text-sm font-bold mb-2">Selecione uma operação para transformar o array:</p>
+                <div class="flex flex-wrap gap-3">
+                    <button onclick="applySort()" class="btn-transform">sort</button>
+                    <button onclick="applyFilter()" class="btn-transform">filter</button>
+                    <button onclick="applyMap()" class="btn-transform">map</button>
+                    <button onclick="applyFind()" class="btn-transform">find</button>
+                    <button onclick="applyReduce()" class="btn-transform">reduce</button>
+                    <button onclick="resetArray()" class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline">Resetar</button>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-300 pt-4">
+                <h2 class="text-gray-800 text-lg font-bold mb-2">Resultado da Transformação:</h2>
+                <div id="resultadoDisplay" class="bg-gray-100 text-gray-700 p-4 min-h-12 rounded-md shadow-inner">
+                    Clique em uma operação para ver o resultado.
+                </div>
+            </div>
+
+            <a href="../index.html" class="mt-8 block text-center text-blue-500 hover:text-blue-700 underline font-semibold transition duration-300">
+                Voltar ao Portfólio
+            </a>
+            
+        </div>
+    </div>
+
+    <script>
+        let meuArray = [10, 4, 20, 1, 6, 10, 50, 2]; 
+        const arrayDisplay = document.getElementById('arrayDisplay');
+        const resultadoDisplay = document.getElementById('resultadoDisplay');
+        
+        const arrayBase = [10, 4, 20, 1, 6, 10, 50, 2];
+
+        function renderArray(arr) {
+            const itemsHTML = arr.map(item => 
+                `<span class="array-item">${item}</span>`
+            ).join('');
+            arrayDisplay.innerHTML = itemsHTML;
+        }
+        
+
+        function applySort() {
+            const novoArray = [...meuArray].sort((a, b) => a - b); 
+            resultadoDisplay.innerHTML = `
+                <p>Método <code>sort()</code> aplicado (ordem crescente):</p>
+                <div class="bg-green-100 border border-green-400 p-2 rounded">${novoArray.map(item => `<span class="array-item bg-green-500">${item}</span>`).join('')}</div>
+            `;
+        }
+
+        function applyFilter() {
+            const novoArray = meuArray.filter(item => item > 2);
+            resultadoDisplay.innerHTML = `
+                <p>Método <code>filter()</code> aplicado (maiores que 2):</p>
+                <div class="bg-green-100 border border-green-400 p-2 rounded">${novoArray.map(item => `<span class="array-item bg-green-500">${item}</span>`).join('')}</div>
+            `;
+        }
+
+        function applyMap() {
+            const novoArray = meuArray.map(item => item * 2);
+            resultadoDisplay.innerHTML = `
+                <p>Método <code>map()</code> aplicado (dobro do valor):</p>
+                <div class="bg-green-100 border border-green-400 p-2 rounded">${novoArray.map(item => `<span class="array-item bg-green-500">${item}</span>`).join('')}</div>
+            `;
+        }
+
+        function applyFind() {
+            const resultado = meuArray.find(item => item === 10);
+            resultadoDisplay.innerHTML = `
+                <p>Método <code>find()</code> aplicado (primeiro valor igual a 10):</p>
+                <p class="font-bold text-xl text-green-700">${resultado !== undefined ? resultado : 'Não encontrado'}</p>
+            `;
+        }
+
+        function applyReduce() {
+            const resultado = meuArray.reduce((acumulador, valorAtual) => acumulador + valorAtual, 0); // O '0' é o valor inicial
+            resultadoDisplay.innerHTML = `
+                <p>Método <code>reduce()</code> aplicado (Soma de todos os elementos):</p>
+                <p class="font-bold text-xl text-green-700">Resultado da Soma: ${resultado}</p>
+            `;
+        }
+
+        function resetArray() {
+            meuArray = [...arrayBase]; 
+            renderArray(meuArray);
+            resultadoDisplay.innerHTML = 'Array resetado. Clique em uma operação.';
+        }
+
+        resetArray();
+    </script>
+</body>
+</html>

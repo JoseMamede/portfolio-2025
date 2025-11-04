@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 04: Lab 02 - Reimplementando Array Methods</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .btn-action {
+            background-color: #3b82f6; 
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .btn-action:hover {
+            background-color: #2563eb; 
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main" class="p-6 md:p-10 w-full max-w-lg">
+        <div class="bg-white shadow-xl rounded-lg px-8 pt-6 pb-8 mb-4 border border-gray-300">
+            
+            <h1 class="text-gray-800 text-2xl font-bold mb-6 text-center">
+                Questão 04: Reimplementando Métodos de Array
+            </h1>
+            <p class="mb-4 text-gray-700">
+                O array original é: <code id="arrayOriginal" class="font-mono bg-gray-200 p-1 rounded"></code>
+            </p>
+            
+            <div class="mb-6 flex flex-wrap gap-3">
+                <button onclick="testPush()" class="btn-action py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Testar Push
+                </button>
+                <button onclick="testPop()" class="btn-action py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Testar Pop
+                </button>
+                <button onclick="testUnshift()" class="btn-action py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Testar Unshift
+                </button>
+                <button onclick="testShift()" class="btn-action py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Testar Shift
+                </button>
+                <button onclick="resetArray()" class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Resetar
+                </button>
+            </div>
+
+            <div class="border-t border-gray-300 pt-4">
+                <h2 class="text-gray-800 text-lg font-bold mb-2">Resultado da Operação:</h2>
+                <div id="resultadoDisplay" class="bg-gray-100 text-gray-800 p-4 min-h-12 rounded-md shadow-inner">
+                    Clique em um botão para testar a função recriada.
+                </div>
+            </div>
+
+            <a href="../index.html" class="mt-8 block text-center text-blue-500 hover:text-blue-700 underline font-semibold transition duration-300">
+                Voltar ao Portfólio
+            </a>
+            
+        </div>
+    </div>
+
+    <script>
+    
+        let testeArray = ['A', 'B', 'C', 'D']; 
+        
+        const arrayOriginalDisplay = document.getElementById('arrayOriginal');
+        const resultadoDisplay = document.getElementById('resultadoDisplay');
+
+
+        function renderArray(arr, operation) {
+            arrayOriginalDisplay.textContent = JSON.stringify(['A', 'B', 'C', 'D']);
+            resultadoDisplay.innerHTML = `
+                <p class="font-semibold text-lg mb-2">${operation} Executado:</p>
+                <p class="font-mono bg-gray-200 p-2 rounded">${JSON.stringify(arr)}</p>
+                <p class="text-sm mt-1">Tamanho final: ${arr.length}</p>
+            `;
+        }
+
+        function resetArray() {
+            testeArray = ['A', 'B', 'C', 'D'];
+            renderArray(testeArray, 'Array Resetado');
+        }
+
+    
+        function pop(array) {
+            if (array.length === 0) return undefined;
+            return array.slice(0, array.length - 1);
+        }
+
+
+        function push(array, valor) {
+            let novoArray = new Array(array.length + 1);
+            
+     
+            for (let i = 0; i < array.length; i++) {
+                novoArray[i] = array[i];
+            }
+            
+   
+            novoArray[array.length] = valor;
+            return novoArray;
+        }
+
+      
+        function shift(array) {
+            if (array.length === 0) return undefined;
+            return array.slice(1, array.length);
+        }
+
+     
+        function unshift(array, valor) {
+     
+            let novoArray = new Array(array.length + 1);
+            
+          
+            novoArray[0] = valor;
+            
+ 
+            for (let i = 0; i < array.length; i++) {
+                novoArray[i + 1] = array[i];
+            }
+            return novoArray;
+        }
+
+
+        function testPush() {
+            testeArray = push(testeArray, 'Novo!');
+            renderArray(testeArray, 'PUSH (Adicionar ao Final)');
+        }
+
+        function testPop() {
+            testeArray = pop(testeArray);
+            renderArray(testeArray, 'POP (Remover do Final)');
+        }
+
+        function testUnshift() {
+            testeArray = unshift(testeArray, 'Primeiro!');
+            renderArray(testeArray, 'UNSHIFT (Adicionar ao Início)');
+        }
+
+        function testShift() {
+            testeArray = shift(testeArray);
+            renderArray(testeArray, 'SHIFT (Remover do Início)');
+        }
+        
+    
+        resetArray();
+    </script>
+</body>
+</html>
