@@ -1,0 +1,168 @@
+/* Paleta de Cores: */
+:root {
+    --color-dark: #0a0a0a;       /* Fundo muito escuro */
+    --color-text: #00ff00;       /* Verde Fluorescente principal */
+    --color-highlight: #00cc00;  /* Verde um pouco mais escuro para hover */
+    --color-border: #008800;     /* Verde para bordas */
+}
+
+/* Base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Share Tech Mono', monospace; /* Fonte digital/monoespaçada */
+    background-color: var(--color-dark);
+    color: var(--color-text);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Links */
+a {
+    color: var(--color-text);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--color-highlight);
+    text-shadow: 0 0 5px var(--color-highlight); /* Efeito de brilho */
+}
+
+/* Estrutura Principal */
+.header, .footer {
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 2px solid var(--color-border);
+}
+
+.header-title {
+    font-size: 1.5rem;
+    color: var(--color-highlight);
+}
+
+.container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.section {
+    margin-bottom: 3rem;
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3); /* Efeito de brilho neon */
+}
+
+.section-title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px dashed var(--color-border);
+    padding-bottom: 0.5rem;
+    color: var(--color-highlight);
+}
+
+/* SEÇÃO DE PERFIL */
+.profile-card {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.photo-placeholder {
+    width: 150px;
+    height: 150px;
+    background-color: #004400; /* Cor escura para o placeholder */
+    border: 2px solid var(--color-text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    text-align: center;
+    flex-shrink: 0; /* Não encolhe */
+}
+
+.placeholder {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
+}
+
+.summary-placeholder {
+    font-style: italic;
+    color: var(--color-highlight);
+}
+
+/* SEÇÃO DE HABILIDADES */
+.skills-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.skills-list li {
+    background-color: #005500;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-border);
+    font-size: 0.9rem;
+}
+
+/* SEÇÃO DE PROJETOS/LINKS (Grid com 2 colunas) */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.project-link {
+    display: block;
+    padding: 1rem;
+    background-color: #1a1a1a;
+    border: 1px solid var(--color-border);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.project-link:hover {
+    background-color: #222222;
+    border-color: var(--color-text);
+    transform: translateY(-3px); /* Leve levantamento */
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+}
+
+/* RODAPÉ */
+.footer {
+    border-top: 2px solid var(--color-border);
+    border-bottom: none;
+    padding: 1rem;
+    font-size: 0.9rem;
+    margin-top: 2rem;
+}
+
+.footer-link {
+    margin: 0 0.5rem;
+}
+
+/* Responsividade Básica */
+@media (max-width: 600px) {
+    .profile-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    .header-title {
+        font-size: 1.2rem;
+    }
+}
+
+.profile-photo {
+    width: 150px; /* Largura fixa, igual ao placeholder original */
+    height: 150px; /* Altura fixa */
+    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer, cortando as bordas se necessário */
+    border-radius: 50%; /* Opcional: para deixar a imagem redonda, como um avatar */
+    border: 2px solid var(--color-text); /* Borda verde fluorescente */
+    flex-shrink: 0; /* Impede que a imagem encolha se houver pouco espaço */
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 01: Substituição por for...of</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos neutros para simular o "toque de amador" */
+        body {
+            background-color: #f7f7f7; /* Fundo branco/claro */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        /* Estilos de botão padrão do Tailwind/HTML */
+        .btn-default {
+            background-color: #3b82f6; /* Azul padrão */
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .btn-default:hover {
+            background-color: #2563eb; /* Azul escuro no hover */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main" class="h-screen flex items-center justify-center">
+        <form 
+            class="bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4 border border-gray-300 w-full max-w-sm" 
+            id="meuForm" action="" method="get"
+            >
+            <h1 class="text-gray-800 text-xl font-bold mb-6 text-center">Questão 01: Iterando com for...of</h1>
+            
+            <div class="mb-6 text-gray-700">
+                <p>Neste exercício, um array de nomes será processado usando o laço **`for...of`**, conforme solicitado.</p>
+                <p class="mt-2 text-sm italic text-gray-500">O resultado da iteração será exibido abaixo.</p>
+            </div>
+            
+            <div class="flex items-center justify-center">
+                <input class="btn-default font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer" type="submit" value="Executar for...of">
+            </div>
+            
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("meuForm").addEventListener("submit", function (e){
+            e.preventDefault();
+
+            // 1. Definição do Array (o dado a ser iterado)
+            const tarefas = ["Preparar Documentação", "Revisar Código Antigo", "Realizar Testes Unitários", "Deploy na Produção"];
+            
+            let resultadoHTML = '<ul class="list-disc list-inside mt-4 text-gray-700">';
+            
+            // 2. A SOLUÇÃO DA QUESTÃO: Usando for...of para iterar
+            // O laço for...of é utilizado para obter os VALORES do array diretamente.
+            for (const tarefa of tarefas) {
+                resultadoHTML += `<li class="hover:text-gray-900 transition duration-150">${tarefa} - [Status: Concluído]</li>`;
+            }
+            
+            resultadoHTML += '</ul>';
+
+            // Remove o formulário e exibe o resultado
+            document.getElementById("meuForm").remove();
+
+            document.getElementById("main").innerHTML = `
+                <div class='min-w-80 bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4 flex flex-col border border-gray-300'>
+                    <h1 class='font-bold text-gray-800 text-xl mb-3'>
+                        Resultado da Iteração:
+                    </h1>
+                    
+                    <h2 class='text-gray-600 text-base mb-2'>
+                        Lista Processada:
+                    </h2>
+                    ${resultadoHTML}
+                    
+                    <a href="../index.html" class="mt-5 text-center text-blue-500 hover:text-blue-700 underline font-semibold transition duration-300">
+                        Voltar ao Portfólio
+                    </a>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>
