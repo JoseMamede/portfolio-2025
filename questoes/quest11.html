@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 11: Boas-Vindas e Manipulação DOM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #f7f7f7; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .btn-default {
+            background-color: #3b82f6; 
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .btn-default:hover {
+            background-color: #2563eb; 
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main" class="p-6 md:p-10 w-full max-w-sm">
+        <form 
+            class="bg-white shadow-xl rounded-lg px-8 pt-6 pb-8 mb-4 border border-gray-300" 
+            id="cadastroForm" action="" method="get"
+            >
+            <h1 class="text-gray-800 text-xl font-bold mb-6 text-center">Questão 11: Coleta de Dados e Boas-Vindas</h1>
+            
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="nomeInput">
+                    Seu Nome:
+                </label>
+                <input 
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="text" id="nomeInput" placeholder="Ex: Ana Silva" required
+                />
+            </div>
+            
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="idadeInput">
+                    Sua Idade:
+                </label>
+                <input 
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="number" id="idadeInput" placeholder="Ex: 25" required min="1"
+                />
+            </div>
+            
+            <div class="flex items-center justify-center">
+                <input class="btn-default font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer" 
+                type="submit" value="Acessar">
+            </div>
+            
+        </form>
+        
+        <a href="../index.html" class="mt-8 block text-center text-blue-500 hover:text-blue-700 underline font-semibold transition duration-300">
+            Voltar ao Portfólio
+        </a>
+    </div>
+
+    <script>
+        document.getElementById("cadastroForm").addEventListener("submit", function (e){
+            e.preventDefault();
+
+            const form = document.getElementById("cadastroForm");
+            const mainDiv = document.getElementById("main");
+            
+            const nome = document.getElementById("nomeInput").value.trim();
+            const idade = document.getElementById("idadeInput").value.trim();
+
+            if (nome === "" || idade === "") {
+                alert("Por favor, preencha todos os campos.");
+                return;
+            }
+            
+            form.remove();
+
+            
+            const mensagemHTML = `
+                <div class="bg-white shadow-xl rounded-lg px-8 pt-6 pb-8 mb-4 border border-gray-300 text-center">
+                    <h2 class="text-2xl font-bold text-green-600 mb-3">Bem-vindo(a), ${nome}!</h2>
+                    <p class="text-gray-700 text-lg">
+                        Seus dados foram registrados.
+                    </p>
+                    <p class="text-gray-700 text-lg mt-1">
+                        Você tem ${idade} anos.
+                    </p>
+                </div>
+            `;
+            
+            const linkVoltar = mainDiv.querySelector('a');
+            linkVoltar.insertAdjacentHTML('beforebegin', mensagemHTML);
+
+            mainDiv.scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

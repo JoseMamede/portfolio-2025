@@ -6,22 +6,21 @@
     <title>Questão 01: Substituição por for...of</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Estilos neutros para simular o "toque de amador" */
         body {
-            background-color: #f7f7f7; /* Fundo branco/claro */
+            background-color: #f7f7f7; 
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
         }
-        /* Estilos de botão padrão do Tailwind/HTML */
+
         .btn-default {
-            background-color: #3b82f6; /* Azul padrão */
+            background-color: #3b82f6;
             color: white;
             transition: background-color 0.3s;
         }
         .btn-default:hover {
-            background-color: #2563eb; /* Azul escuro no hover */
+            background-color: #2563eb; 
         }
     </style>
 </head>
@@ -50,20 +49,16 @@
         document.getElementById("meuForm").addEventListener("submit", function (e){
             e.preventDefault();
 
-            // 1. Definição do Array (o dado a ser iterado)
             const tarefas = ["Preparar Documentação", "Revisar Código Antigo", "Realizar Testes Unitários", "Deploy na Produção"];
             
             let resultadoHTML = '<ul class="list-disc list-inside mt-4 text-gray-700">';
             
-            // 2. A SOLUÇÃO DA QUESTÃO: Usando for...of para iterar
-            // O laço for...of é utilizado para obter os VALORES do array diretamente.
             for (const tarefa of tarefas) {
                 resultadoHTML += `<li class="hover:text-gray-900 transition duration-150">${tarefa} - [Status: Concluído]</li>`;
             }
             
             resultadoHTML += '</ul>';
 
-            // Remove o formulário e exibe o resultado
             document.getElementById("meuForm").remove();
 
             document.getElementById("main").innerHTML = `

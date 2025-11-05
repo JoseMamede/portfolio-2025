@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 10: Jogo de Adivinhação com Loop WHILE</title>
+    <!-- Adiciona o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #f7f7f7; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .btn-default {
+            background-color: #3b82f6; 
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .btn-default:hover {
+            background-color: #2563eb; 
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main" class="p-6 md:p-10 w-full max-w-sm">
+        <div 
+            class="bg-white shadow-xl rounded-lg px-8 pt-6 pb-8 mb-4 border border-gray-300" 
+            id="jogoAdivinhacao"
+            >
+            <h1 class="text-gray-800 text-xl font-bold mb-3 text-center">Questão 10: Adivinhe o Número (1 a 100)</h1>
+            <p class="text-sm text-gray-500 mb-6 text-center">Baseado na lógica de loop WHILE.</p>
+            
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="palpiteInput">
+                    Seu Palpite:
+                </label>
+                <input 
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="number" id="palpiteInput" placeholder="1 a 100" min="1" max="100"
+                />
+            </div>
+            
+            <div class="flex items-center justify-center space-x-4">
+                <button id="btnTentar" class="btn-default font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer">
+                    Tentar
+                </button>
+                <button id="btnReiniciar" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer">
+                    Reiniciar
+                </button>
+            </div>
+            <div id="mensagem-area" class="mt-6">
+                <p class="text-gray-700">Tente adivinhar o número secreto!</p>
+            </div>
+            
+            <div id="historico-area" class="mt-4 border-t pt-4">
+                <h2 class="text-gray-700 text-sm font-bold">Tentativas: <span id="tentativasCount">0</span></h2>
+                <ul id="historicoLista" class="text-sm text-gray-600 list-disc ml-4 mt-2 max-h-32 overflow-y-auto">
+                    <!-- Histórico vai aqui -->
+                </ul>
+            </div>
+            
+            <a href="../index.html" class="mt-8 block text-center text-blue-500 hover:text-blue-700 underline font-semibold transition duration-300">
+                Voltar ao Portfólio
+            </a>
+        </div>
+    </div>
+
+    <script>
+        let numeroSecreto;
+        let tentativas = 0;
+        let jogoAtivo = true;
+
+        // Elementos DOM
+        const palpiteInput = document.getElementById("palpiteInput");
+        const btnTentar = document.getElementById("btnTentar");
+        const mensagemArea = document.getElementById("mensagem-area");
+        const historicoLista = document.getElementById("historicoLista");
+        const tentativasCount = document.getElementById("tentativasCount");
+        const btnReiniciar = document.getElementById("btnReiniciar");
+
+        function iniciarJogo() {
+            numeroSecreto = Math.floor(Math.random() * 100) + 1;
+            tentativas = 0;
+            jogoAtivo = true;
+            
+            // Limpa o display
+            mensagemArea.innerHTML = '<p class="text-gray-700">Tente adivinhar o número secreto!</p>';
+            historicoLista.innerHTML = '';
+            tentativasCount.textContent = '0';
+            palpiteInput.value = '';
+            palpiteInput.disabled = false;
+            btnTentar.disabled = false;
+        }
+
+        function verificarPalpite() {
+            if (!jogoAtivo) return;
+
+            const palpite = parseInt(palpiteInput.value);
+
+            if (isNaN(palpite) || palpite < 1 || palpite > 100) {
+                mensagemArea.innerHTML = '<p class="text-red-500">Por favor, insira um número entre 1 e 100.</p>';
+                return;
+            }
+
+            tentativas++;
+            tentativasCount.textContent = tentativas;
+            
+            let mensagem = '';
+            let cor = 'text-gray-700';
+
+            if (palpite < numeroSecreto) {
+                mensagem = 'Muito baixo! Tente um número maior.';
+                cor = 'text-orange-600';
+            } else if (palpite > numeroSecreto) {
+                mensagem = 'Muito alto! Tente um número menor.';
+                cor = 'text-orange-600';
+            } else {
+                mensagem = `CORRETO! O número é ${numeroSecreto}. Você acertou em ${tentativas} tentativas!`;
+                cor = 'text-green-600 font-bold text-lg';
+                jogoAtivo = false;
+                
+                palpiteInput.disabled = true;
+                btnTentar.disabled = true;
+            }
+            
+            mensagemArea.innerHTML = `<p class="${cor}">${mensagem}</p>`;
+            
+            const li = document.createElement('li');
+            li.textContent = `Palpite ${tentativas}: ${palpite} (${cor.includes('green') ? 'Acertou!' : 'Erro'})`;
+            historicoLista.prepend(li); // Adiciona ao topo
+
+            palpiteInput.value = '';
+            palpiteInput.focus();
+        }
+
+        btnTentar.addEventListener('click', verificarPalpite);
+        btnReiniciar.addEventListener('click', iniciarJogo);
+        palpiteInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                verificarPalpite();
+            }
+        });
+
+        iniciarJogo();
+    </script>
+</body>
+</html>
