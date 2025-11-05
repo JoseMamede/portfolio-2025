@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 13: Cálculo de Área e Perímetro do Círculo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #f7f7f7; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .btn-default {
+            background-color: #3b82f6; 
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .btn-default:hover {
+            background-color: #2563eb; 
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main" class="p-6 md:p-10 w-full max-w-sm">
+        <form 
+            class="bg-white shadow-xl rounded-lg px-8 pt-6 pb-8 mb-4 border border-gray-300" 
+            id="circuloForm" action="" method="get"
+            >
+            <h1 class="text-gray-800 text-xl font-bold mb-6 text-center">Questão 13: Cálculo de Círculo</h1>
+            
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="raioInput">
+                    Digite o Raio do Círculo (em cm):
+                </label>
+                <input 
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="number" id="raioInput" placeholder="Ex: 5" required min="0" step="any"
+                />
+            </div>
+            
+            <div class="flex items-center justify-center">
+                <input class="btn-default font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer" 
+                type="submit" value="Calcular Área e Perímetro">
+            </div>
+            
+            <div id="resultado-area" class="mt-6"></div>
+            
+        </form>
+        
+        <a href="../index.html" class="mt-8 block text-center text-blue-500 hover:text-blue-700 underline font-semibold transition duration-300">
+            Voltar ao Portfólio
+        </a>
+    </div>
+
+    <script>
+        document.getElementById("circuloForm").addEventListener("submit", function (e){
+            e.preventDefault();
+
+            const resultadoArea = document.getElementById("resultado-area");
+            resultadoArea.innerHTML = ''; // Limpa resultados anteriores
+
+            const raio = parseFloat(document.getElementById("raioInput").value);
+
+            if (isNaN(raio) || raio < 0) {
+                resultadoArea.innerHTML = '<p class="text-red-500">Por favor, insira um valor de raio válido (maior ou igual a zero).</p>';
+                return;
+            }
+            
+            const area = Math.PI * Math.pow(raio, 2);
+            const perimetro = 2 * Math.PI * raio;
+            
+            
+            let resultadoHTML = '<h2 class="font-bold mb-2 text-gray-800">Resultados para Raio = ' + raio + ' cm:</h2>';
+            resultadoHTML += '<div class="border border-gray-200 p-3 rounded bg-gray-50">';
+            
+            resultadoHTML += `
+                <div class="mb-2">
+                    <p class="text-sm text-gray-600">Área (π * r²):</p>
+                    <p class="text-xl font-bold text-blue-600">${area.toFixed(2)} cm²</p>
+                </div>
+            `;
+            resultadoHTML += `
+                <div>
+                    <p class="text-sm text-gray-600">Perímetro (2 * π * r):</p>
+                    <p class="text-xl font-bold text-blue-600">${perimetro.toFixed(2)} cm</p>
+                </div>
+            `;
+            
+            resultadoHTML += '</div>';
+
+            resultadoArea.innerHTML = resultadoHTML;
+        });
+    </script>
+</body>
+</html>

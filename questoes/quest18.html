@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 18: Comparação de Strings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+
+        body {
+            background-color: #f7f7f7; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .btn-default {
+            background-color: #3b82f6; 
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .btn-default:hover {
+            background-color: #2563eb; 
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main" class="p-6 md:p-10 w-full max-w-sm">
+        <form 
+            class="bg-white shadow-xl rounded-lg px-8 pt-6 pb-8 mb-4 border border-gray-300" 
+            id="stringForm" action="" method="get"
+            >
+            <h1 class="text-gray-800 text-xl font-bold mb-6 text-center">Questão 18: Comparação de Strings</h1>
+            
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="string1Input">
+                    Primeira Palavra/Frase:
+                </label>
+                <input 
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="text" id="string1Input" placeholder="Ex: JavaScript" required
+                />
+            </div>
+            
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="string2Input">
+                    Segunda Palavra/Frase:
+                </label>
+                <input 
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="text" id="string2Input" placeholder="Ex: javascript" required
+                />
+                <p class="text-xs text-gray-500 mt-1 italic">A comparação é sensível a maiúsculas/minúsculas!</p>
+            </div>
+            
+            <div class="flex items-center justify-center">
+                <input class="btn-default font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer" 
+                type="submit" value="Comparar">
+            </div>
+            
+            <div id="resultado-area" class="mt-6"></div>
+            
+        </form>
+        
+        <a href="../index.html" class="mt-8 block text-center text-blue-500 hover:text-blue-700 underline font-semibold transition duration-300">
+            Voltar ao Portfólio
+        </a>
+    </div>
+
+    <script>
+        document.getElementById("stringForm").addEventListener("submit", function (e){
+            e.preventDefault();
+
+            const resultadoArea = document.getElementById("resultado-area");
+            resultadoArea.innerHTML = ''; // Limpa resultados anteriores
+
+            // 1. Armazenar as strings (usando .trim() para remover espaços extras nas pontas)
+            const string1 = document.getElementById("string1Input").value.trim();
+            const string2 = document.getElementById("string2Input").value.trim();
+
+            if (string1 === "" || string2 === "") {
+                resultadoArea.innerHTML = '<p class="text-red-500">Por favor, preencha ambas as caixas.</p>';
+                return;
+            }
+            
+            let resultadoMensagem = '';
+            let corDestaque = '';
+
+  
+            if (string1 === string2) {
+                resultadoMensagem = `As strings são IGUAIS (valor e tipo).`;
+                corDestaque = 'text-green-600';
+            } else {
+                resultadoMensagem = `As strings são DIFERENTES.`;
+                corDestaque = 'text-red-600';
+            }
+            
+
+            let resultadoHTML = '<h2 class="font-bold mb-2 text-gray-800">Resultado da Comparação:</h2>';
+            resultadoHTML += '<div class="border border-gray-200 p-3 rounded bg-gray-50 text-center">';
+            
+            resultadoHTML += `<p class="text-xl font-bold ${corDestaque}">${resultadoMensagem}</p>`;
+            resultadoHTML += `<p class="text-sm text-gray-500 mt-2">"${string1}" vs "${string2}"</p>`;
+            
+            resultadoHTML += '</div>';
+
+            resultadoArea.innerHTML = resultadoHTML;
+        });
+    </script>
+</body>
+</html>

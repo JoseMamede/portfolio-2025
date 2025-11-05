@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 17: Operadores Lógicos (AND, OR, NOT)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #f7f7f7; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .btn-default {
+            background-color: #3b82f6; 
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .btn-default:hover {
+            background-color: #2563eb; 
+        }
+        .resultado-logico {
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            border-bottom: 1px dashed #ccc;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main" class="p-6 md:p-10 w-full max-w-sm">
+        <form 
+            class="bg-white shadow-xl rounded-lg px-8 pt-6 pb-8 mb-4 border border-gray-300" 
+            id="logicaForm" action="" method="get"
+            >
+            <h1 class="text-gray-800 text-xl font-bold mb-6 text-center">Questão 17: Operadores Lógicos</h1>
+            
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="valor1Input">
+                    Primeiro Valor (A):
+                </label>
+                <select id="valor1Input" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="true">Verdadeiro (True)</option>
+                    <option value="false">Falso (False)</option>
+                </select>
+            </div>
+            
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="valor2Input">
+                    Segundo Valor (B):
+                </label>
+                <select id="valor2Input" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="true">Verdadeiro (True)</option>
+                    <option value="false">Falso (False)</option>
+                </select>
+            </div>
+            
+            <div class="flex items-center justify-center">
+                <input class="btn-default font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer" 
+                type="submit" value="Aplicar Lógica">
+            </div>
+            
+            <div id="resultado-area" class="mt-6"></div>
+            
+        </form>
+        
+        <a href="../index.html" class="mt-8 block text-center text-blue-500 hover:text-blue-700 underline font-semibold transition duration-300">
+            Voltar ao Portfólio
+        </a>
+    </div>
+
+    <script>
+        document.getElementById("logicaForm").addEventListener("submit", function (e){
+            e.preventDefault();
+
+            const resultadoArea = document.getElementById("resultado-area");
+            resultadoArea.innerHTML = ''; 
+
+
+            const valor1String = document.getElementById("valor1Input").value;
+            const valor2String = document.getElementById("valor2Input").value;
+            
+            const A = valor1String === 'true'; 
+            const B = valor2String === 'true'; 
+
+            const formatarBool = (valor) => {
+                const cor = valor ? 'text-green-600' : 'text-red-600';
+                return `<span class="font-bold ${cor}">${valor ? 'TRUE' : 'FALSE'}</span>`;
+            };
+
+            const resultadoAnd = A && B;
+            const resultadoOr = A || B;
+            const resultadoNotA = !A;
+            const resultadoNotB = !B;
+
+            let resultadoHTML = '<h2 class="font-bold mb-2 text-gray-800">Tabela de Resultados:</h2>';
+            resultadoHTML += '<div class="border border-gray-200 p-3 rounded bg-gray-50 font-mono">';
+            
+            resultadoHTML += `<p class="resultado-logico">A = ${formatarBool(A)} | B = ${formatarBool(B)}</p>`;
+            resultadoHTML += '<hr class="my-2 border-gray-300">';
+            
+            resultadoHTML += `<p class="resultado-logico">A AND B (A && B): ${formatarBool(resultadoAnd)}</p>`;
+            resultadoHTML += `<p class="resultado-logico">A OR B (A || B): ${formatarBool(resultadoOr)}</p>`;
+            resultadoHTML += `<p class="resultado-logico">NOT A (!A): ${formatarBool(resultadoNotA)}</p>`;
+            resultadoHTML += `<p class="resultado-logico">NOT B (!B): ${formatarBool(resultadoNotB)}</p>`;
+            
+            resultadoHTML += '</div>';
+
+            resultadoArea.innerHTML = resultadoHTML;
+        });
+    </script>
+</body>
+</html>

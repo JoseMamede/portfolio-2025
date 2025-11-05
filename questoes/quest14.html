@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 14: Conversão Celsius para Fahrenheit</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #f7f7f7; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .btn-default {
+            background-color: #3b82f6; 
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .btn-default:hover {
+            background-color: #2563eb; 
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main" class="p-6 md:p-10 w-full max-w-sm">
+        <form 
+            class="bg-white shadow-xl rounded-lg px-8 pt-6 pb-8 mb-4 border border-gray-300" 
+            id="tempForm" action="" method="get"
+            >
+            <h1 class="text-gray-800 text-xl font-bold mb-6 text-center">Questão 14: Celsius para Fahrenheit</h1>
+            
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="celsiusInput">
+                    Temperatura em Celsius (°C):
+                </label>
+                <input 
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="number" id="celsiusInput" placeholder="Ex: 25" required step="any"
+                />
+            </div>
+            
+            <div class="flex items-center justify-center">
+                <input class="btn-default font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer" 
+                type="submit" value="Converter">
+            </div>
+            
+            <div id="resultado-area" class="mt-6"></div>
+            
+        </form>
+        
+        <a href="../index.html" class="mt-8 block text-center text-blue-500 hover:text-blue-700 underline font-semibold transition duration-300">
+            Voltar ao Portfólio
+        </a>
+    </div>
+
+    <script>
+        document.getElementById("tempForm").addEventListener("submit", function (e){
+            e.preventDefault();
+
+            const resultadoArea = document.getElementById("resultado-area");
+            resultadoArea.innerHTML = ''; 
+
+            // 1. Armazenar o valor de Celsius
+            const celsius = parseFloat(document.getElementById("celsiusInput").value);
+
+            if (isNaN(celsius)) {
+                resultadoArea.innerHTML = '<p class="text-red-500">Por favor, insira um valor numérico válido.</p>';
+                return;
+            }
+            
+            const fahrenheit = celsius * 1.8 + 32;
+            
+            
+            let resultadoHTML = '<h2 class="font-bold mb-2 text-gray-800">Resultado da Conversão:</h2>';
+            resultadoHTML += '<div class="border border-gray-200 p-3 rounded bg-gray-50">';
+            
+            resultadoHTML += `
+                <p class="text-lg text-gray-600 mb-1">Temperatura em Celsius:</p>
+                <p class="text-2xl font-bold text-blue-600">${celsius.toFixed(1)} °C</p>
+                <hr class="my-3 border-gray-300">
+                <p class="text-lg text-gray-600 mb-1">Temperatura em Fahrenheit:</p>
+                <p class="text-2xl font-bold text-blue-600">${fahrenheit.toFixed(1)} °F</p>
+            `;
+            
+            resultadoHTML += '</div>';
+
+            resultadoArea.innerHTML = resultadoHTML;
+        });
+    </script>
+</body>
+</html>

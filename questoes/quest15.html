@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 15: Cálculo de Salário Anual</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #f7f7f7; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .btn-default {
+            background-color: #3b82f6; 
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .btn-default:hover {
+            background-color: #2563eb; 
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main" class="p-6 md:p-10 w-full max-w-sm">
+        <form 
+            class="bg-white shadow-xl rounded-lg px-8 pt-6 pb-8 mb-4 border border-gray-300" 
+            id="salarioForm" action="" method="get"
+            >
+            <h1 class="text-gray-800 text-xl font-bold mb-6 text-center">Questão 15: Cálculo de Salário Anual</h1>
+            
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="salarioInput">
+                    Salário Mensal (R$):
+                </label>
+                <input 
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="number" id="salarioInput" placeholder="Ex: 2500.00" required min="0" step="0.01"
+                />
+            </div>
+            
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="mesesInput">
+                    Meses Trabalhados no Ano:
+                </label>
+                <input 
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="number" id="mesesInput" placeholder="1 a 12" required min="1" max="12" step="1"
+                />
+            </div>
+            
+            <div class="flex items-center justify-center">
+                <input class="btn-default font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer" 
+                type="submit" value="Calcular Salário Anual">
+            </div>
+            
+            <div id="resultado-area" class="mt-6"></div>
+            
+        </form>
+        
+        <a href="../index.html" class="mt-8 block text-center text-blue-500 hover:text-blue-700 underline font-semibold transition duration-300">
+            Voltar ao Portfólio
+        </a>
+    </div>
+
+    <script>
+        document.getElementById("salarioForm").addEventListener("submit", function (e){
+            e.preventDefault();
+
+            const resultadoArea = document.getElementById("resultado-area");
+            resultadoArea.innerHTML = ''; 
+
+            // 1. Armazenar os valores
+            const salarioMensal = parseFloat(document.getElementById("salarioInput").value);
+            const mesesTrabalhados = parseInt(document.getElementById("mesesInput").value);
+
+            if (isNaN(salarioMensal) || isNaN(mesesTrabalhados) || salarioMensal < 0 || mesesTrabalhados < 1) {
+                resultadoArea.innerHTML = '<p class="text-red-500">Por favor, insira valores válidos.</p>';
+                return;
+            }
+            
+            const salarioAnual = salarioMensal * mesesTrabalhados;
+            
+            const salarioAnualFormatado = salarioAnual.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            
+            
+            let resultadoHTML = '<h2 class="font-bold mb-2 text-gray-800">Salário Anual Calculado:</h2>';
+            resultadoHTML += '<div class="border border-gray-200 p-3 rounded bg-gray-50 text-center">';
+            
+            resultadoHTML += `
+                <p class="text-lg text-gray-600 mb-1">Total Recebido (Anual):</p>
+                <p class="text-3xl font-bold text-blue-600">${salarioAnualFormatado}</p>
+                <p class="text-sm text-gray-500 mt-2">(${mesesTrabalhados} meses x ${salarioMensal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}/mês)</p>
+            `;
+            
+            resultadoHTML += '</div>';
+
+            resultadoArea.innerHTML = resultadoHTML;
+        });
+    </script>
+</body>
+</html>
